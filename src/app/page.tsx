@@ -2,6 +2,25 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+
+function Footer() {
+    const [year, setYear] = useState(new Date().getFullYear());
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setYear(new Date().getFullYear());
+        }, 1000 * 60 * 60); // Oppdater hver time
+
+        return () => clearInterval(interval);
+    }, []);
+
+    return (
+        <footer className='absolute bottom-0 w-full py-4 text-center text-gray-300 text-sm z-10'>
+            <p>&copy; {year} tradisjonstro.no. Alle rettigheter forbeholdt.</p>
+        </footer>
+    );
+}
 
 export default function Home() {
     return (
@@ -27,7 +46,7 @@ export default function Home() {
                 className='relative z-10 max-w-2xl mx-auto text-center space-y-6'
             >
                 <h1 className='text-4xl md:text-5xl font-bold text-white mb-4'>
-                    Velkommen til Tradisjonstro.no
+                    Velkommen til tradisjonstro.no
                 </h1>
                 <p className='text-xl md:text-2xl text-gray-200 mb-8'>
                     Vi jobber med å skape en spennende nettside om norske
@@ -49,9 +68,10 @@ export default function Home() {
                     }}
                     className='mt-8 text-gray-300'
                 >
-                    <p>✨ Kommer snart ✨</p>
+                    <p>✨ Kommer snart til en pc eller mobil nær deg! ✨</p>
                 </motion.div>
             </motion.div>
+            <Footer />
         </main>
     );
 }
